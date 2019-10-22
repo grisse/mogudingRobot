@@ -1,13 +1,13 @@
 ## 蘑菇丁App自动签到
 
-蘑菇丁app自动签到，提供2个解决方案。
+蘑菇丁app自动签到解决方案：
 - serverless，可以使用腾讯云、阿里云等平台提供的函数计算服务，并且免费额度足够签到使用。代码文件在仓库serverless目录下。
 - 将程序设置成工作电脑的开机自启项或定时任务，每天开机时即自动签到。代码文件在仓库pc目录下。
 - 将两种方案进行综合，因为函数计算是定时执行代码签到，长期固定时间签到生活过分规律，可采取工作日电脑自启签到方式+周末函数计算签到方式。
 
 ## 使用
 
-选择2种解决方案之一（或全选），去对应的目录下载代码文件修改配置信息，目前只提供了python版。
+选择上述2种解决方案之一（或综合），去对应的目录下载代码文件修改配置信息，目前只提供了python版。
 
 将代码里的配置信息修改成自己的信息：
 
@@ -30,7 +30,7 @@ address = "天安门广场"   #签到地点名
 ![image](https://user-images.githubusercontent.com/29170320/67254232-97d02c00-f4ae-11e9-832c-ddc8ec532f29.png)
 
 2. 设置定时触发器。保存并测试成功后，添加触发方式为定时触发，自定义触发周期的Cron表达式，比如 `	
-0 0 9 * * * *` ,意思是每天9点触发。表达式详细用法请参考官方文档。
+0 0 9 * * * *` , 意思是每天9点触发；每个周末中午12点触发的Cron表达式为`0 0 12 * * SAT,SUN *`,Cron表达式详细用法请参考各平台的官方文档。
 
 腾讯云函数计算文档：https://cloud.tencent.com/document/product/583
 
@@ -40,11 +40,11 @@ address = "天安门广场"   #签到地点名
 
 #### Python
 
-1. 安装python3 环境 （https://python.org）和 requests库（pip install requests） 。
+1. 安装python3 环境 （https://python.org）和 requests库（`pip install requests`） 。
 
 2. 下载仓库中的`mogudStart.bat`文件(用来运行脚本)，修改其中代码文件的路径。
 
-3. 将该`mogudStart.bat`文件放到`C:\Users\用户名\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup` 目录下，重启。
+3. 将`mogudStart.bat`文件放到`C:\Users\用户名\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup` 目录下，重启。
 
 #### 其他系统
 
