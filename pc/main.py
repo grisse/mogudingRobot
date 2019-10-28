@@ -14,6 +14,8 @@ desc = "我在这里"   #签到文本
 longitude = "116.404267"  #经度
 latitude = "39.910131"   #纬度
 address = "天安门广场"   #签到地点名
+stateType = "START"  #START 上班 END 下班
+
 
 def getToken():
     data = {
@@ -22,18 +24,16 @@ def getToken():
         "uuid":"",
         "phone": phone
     }
-
-    resp = requests.post(loginUrl,data=json.dumps(data), headers={"Content-Type": "application/json; charset=UTF-8",'User-Agent': 'Mozilla/5.0 (Linux; U; Android 8.1.0; zh-cn; BLA-AL00 Build/HUAWEIBLA-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36'})
-
-    return resp.json()['data']['token']
+    resp = postUrl(loginUrl,data=data, headers={"Content-Type": "application/json; charset=UTF-8",'User-Agent': 'Mozilla/5.0 (Linux; U; Android 8.1.0; zh-cn; BLA-AL00 Build/HUAWEIBLA-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36'})
+    return resp['data']['token']
 
 def getPlanId(headers):
     data = {"state":""}
-    resp = requests.post(planUrl, headers=headers, data = data)
-
-    return resp.json()['data'][0]['planId']
+    resp = postUrl(planUrl,headers,data)
+    return resp['data'][0]['planId']
 
 def main():
+    
     headers = {
         'Content-Type': 'application/json; charset=UTF-8',
         'User-Agent': 'Mozilla/5.0 (Linux; U; Android 8.1.0; zh-cn; BLA-AL00 Build/HUAWEIBLA-AL00) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Mobile Safari/537.36',
@@ -51,9 +51,15 @@ def main():
         'longitude': longitude,
         'latitude': latitude,
         'planId': getPlanId(headers),
-        'type': 'END'  #START 上班 END 下班
+        'type': stateType
     }
-    resp = requests.post(saveUrl, headers=headers, data=json.dumps(data))
-    print(resp.json())
+
+    resp = postUrl(saveUrl,headers,data)
+    print(resp)
+
+def postUrl(url,headers,data):
+    requests.packages.urllib3.disable_warnings()
+    resp = requests.post(url, headers=headers, data=json.dumps(data),verify=False)
+    return resp.json()
 
 main()
