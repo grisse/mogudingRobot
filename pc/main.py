@@ -4,10 +4,7 @@ import requests
 import random
 import json
 
-loginUrl = "https://api.moguding.net:9000/session/user/v1/login"
-saveUrl = "https://api.moguding.net:9000/attendence/clock/v1/save"
-planUrl = "https://api.moguding.net:9000/practice/plan/v1/getPlanByStu"
-
+#配置信息
 phone = ""    # 登录手机号
 password = ""  # 登录密码
 desc = "我在这里"   #签到文本
@@ -15,7 +12,11 @@ longitude = "116.404267"  #经度
 latitude = "39.910131"   #纬度
 address = "天安门广场"   #签到地点名
 stateType = "START"  #START 上班 END 下班
+#配置信息
 
+loginUrl = "https://api.moguding.net:9000/session/user/v1/login"
+saveUrl = "https://api.moguding.net:9000/attendence/clock/v1/save"
+planUrl = "https://api.moguding.net:9000/practice/plan/v1/getPlanByStu"
 
 def getToken():
     data = {

@@ -14,7 +14,7 @@ longitude = "116.404267"  #经度
 latitude = "39.910131"   #纬度
 address = "天安门广场"   #签到地点名
 stateType = "START"  #START 上班 END 下班
-sec = 800  # 延迟签到的上限时间，单位为秒
+sec = 200   # 延迟签到的上限时间，单位为秒
 # 配置信息
 
 loginUrl = "https://api.moguding.net:9000/session/user/v1/login"
@@ -68,11 +68,7 @@ def postUrl(url,headers,data):
     resp = requests.post(url, headers=headers, data=json.dumps(data),verify=False)
     return resp.json()
 
-def main_handler(event, context):
-    print("延迟%s秒签到" % inc)
-    
-    schedule.enter(inc, 0, main, ())
-    schedule.run()
 
-    print("在%s签到成功！" % address)
-    return("happy~")
+print("%s后进行签到" % inc)
+schedule.enter(inc, 0, main, ())
+schedule.run()
