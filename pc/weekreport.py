@@ -23,7 +23,7 @@ if __name__ == '__main__':
         PostWeekJson = {
             "yearmonth": "",
             "address": "",
-            "title": "第" + val["data"][key]["weeks"] + "的周报",
+            "title": val["data"][key]["weeks"] + "的周报",
             "longitude": "0.0",
             "latitude": "0.0",
             "weeks": val["data"][key]["weeks"],
